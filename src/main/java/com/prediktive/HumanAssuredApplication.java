@@ -1,4 +1,4 @@
-package com.prediktive.human_assured;
+package com.prediktive;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
