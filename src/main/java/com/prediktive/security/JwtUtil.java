@@ -1,4 +1,4 @@
-package com.prediktive.config;
+package com.prediktive.security;
 
 import com.prediktive.domain.TokenValidationResult;
 import com.prediktive.domain.UserData;
@@ -11,8 +11,7 @@ import java.util.*;
 
 @Component
 public class JwtUtil {
-
-    private String SECRET_KEY = "secret";
+    private final String SECRET_KEY = "my-secret-key-human";
 
     public String generateToken(UserData userData) {
 

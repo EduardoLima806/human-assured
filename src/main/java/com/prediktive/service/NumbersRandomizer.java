@@ -13,7 +13,7 @@ public class NumbersRandomizer {
 
     public List<Integer> random2or3Numbers() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        int numbersToGenerate = random.nextInt(3) + 2;
+        int numbersToGenerate = random.nextInt(1) + 2;
         return IntStream.range(0, numbersToGenerate)
                 .map(e -> random.nextInt(MAX_NUMBER) + 1)
                 .boxed()
