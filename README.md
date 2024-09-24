@@ -1,10 +1,10 @@
 ## Human Assured Application
 
-This a project aims make sure of any application is accessed by humans and not a by any computers or bot.
+This project aims make sure of any application is accessed by humans and not by any computers or bot.
 
-The used approach is message exchange interaction for a question and an answer. The service provide a question to be solved and the user must answer with the correct response.
+The used approach is like message exchange interaction for a question and an answer. The service provide a question to be solved and the user must answer with the correct response.
 
-There is no need to login and application is totally Stateless.
+There is no needed to login and application is totally Stateless.
 
 ### Assumptions
 
@@ -148,5 +148,5 @@ The target of this project is present a proposed solution considering the limite
 * Considering the application grow we have to think about of Scalability. A good option would be to provide a Kubernetes cluster deployed in some cloud provider like Amazon AWS by the AWS EKS service.
 * It could use a Terraform for IaC and avoid a lock-in cloud vendor. 
 * For a big scaling would be a good practice to adopt an APM to implement telemetry and increase the level of observability. Tools like New Relic and Datadog would be a good options.
-* For CI/CD process we could create an automation steps to build, tests, vulnerabilities or even deployment. Canary Deployment is a good practice in high concurrent environments.
+* For CI/CD process we could create an automation steps to build, tests, vulnerabilities or even deployment. Canary Deployment is a good practice in high concurrent environments. GitHub Action is a good alternative.
 * In terms of tests implementation it would be good implement mutation tests (pitest) and load tests (k6, JMeter) in order to increase tests quality.
