@@ -4,6 +4,8 @@ This a project aims make sure of any application is accessed by humans and not a
 
 The used approach is message exchange interaction for a question and an answer. The service provide a question to be solved and the user must answer with the correct response.
 
+There is no need to login and application is totally Stateless.
+
 ### Assumptions
 
 In order to achieve the main assumptions to be considered in terms of use cases are:
@@ -55,9 +57,8 @@ Considering the use case workflow the service has 4 steps in overrall, following
 
 Basicly the application has 2 endpoints for workflow:
 
-* > GET /message/ask
-* > POST /message/answer
-
+* ``GET /message/ask``
+* ``POST /message/answer``
 
 The swagger documentation is available in running application by http://localhost:8080/human-assured/api/v1/swagger-ui/index.html
 
@@ -101,38 +102,51 @@ The service response to the user if it is correct or not.
 
 ### Token Structure
 
-The token is structured by the 3 following item that identify the user for that specific interaction:
+The token is a JWT token that uses HS256 algorithm to encrypt the data. It is structured by the 3 following item that identify the user for that specific interaction:
 
-| Token item  | Example  |
-| ------------- |:-------------:|
-| Session Id     | 84266fdbd31d4c2c6d0665f7e8380fa3     |
-| User Agent     | Mozilla/5.0 (Linux; Linux x86_64) Gecko/20100101 Firefox/53.3     |
-| IP      | 27.79.137.171     |
-| Sum of the numbers      | 17     |
+| Token item                                                                        | Example  |
+|-----------------------------------------------------------------------------------|:-------------:|
+| [Session Id](https://developer.mozilla.org/en-US/docs/Web/HTTP/Session)           | 84266fdbd31d4c2c6d0665f7e8380fa3     |
+| [User Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent) | Mozilla/5.0 (Linux; Linux x86_64) Gecko/20100101 Firefox/53.3     |
+| [IP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)                                                                            | 27.79.137.171     |
+| Sum of the numbers                                                                | 17     |
 
 The main reason to choose these item to compose the token is that the combination of the these info must identify:
 
 * The specific session (user)
 * The specific request (question)
-* Done by the specfic device
-* From an specific Internet Protocol (IP)
+* Done by the specific device
+* From a specific Internet Protocol (IP)
 
-Once that each one item could be violated in the client side this is not a guarantee to identity it, and we have a some risk is case of the service suffer an Session Hijacki attack.
+#### Trade-offs 
 
-* User <> Service
-* Token (Format: Session + User Agent IP)
-* Explain the reason for choose these format and advantages and drawbacks (trade-offs, risks, vunerabilitys and attacks)
-    * Session Hijacki
-* Diagram with Numerated workflow: 1, 2, 3, 
+Once each one of token item could be a good candidate to identify the user interaction according to definition by each one (linked on the table), there is a some risks that so that the original meaning could be violated.
+
+* The service can be violated by a **[Session Hijacking](https://pt.wikipedia.org/wiki/Session_hijacking)** attack, using XSS, Malware or other mechanism.
+* The ``User-Agent``could be changed by the client side just passing a different one on the header
+* The request could be redirected from a different **IP** from a Load Balancer or Api Gateway.
+
+These mechanisms are different strategies to violate the user identity that any web application could be vulnerable. However there some approach to prevent them:
+
+* The combination of these 4 info in a unique token is one more level of security instead of usage it individually (CorrelationID).
+* A token expiration of 60 seconds is more one level to prevent bots and better usage of resources.
+* Usage of HTTPS instead of HTTP. The SSL certificate is a good mechanism to traffic encrypted data between client and server.
 
 ### Tests Suite
 
+The following tests were implemented:
+
 * Unit Tests
 * Integration tests (API)
-* Used Framework
 
-### Improviments and Future Contributions
-* Scalability (Kubernetes)
-* Docker
-* Mutation Tests
-* Load Tests (k6, JMeter)
+![alt text](docs/tests.png)
+
+### Improvements and Future Contributions
+
+The target of this project is present a proposed solution considering the limited time but keeping in mind the possible improvements.
+
+* Considering the application grow we have to think about of Scalability. A good option would be to provide a Kubernetes cluster deployed in some cloud provider like Amazon AWS by the AWS EKS service.
+* It could use a Terraform for IaC and avoid a lock-in cloud vendor. 
+* For a big scaling would be a good practice to adopt an APM to implement telemetry and increase the level of observability. Tools like New Relic and Datadog would be a good options.
+* For CI/CD process we could create an automation steps to build, tests, vulnerabilities or even deployment. Canary Deployment is a good practice in high concurrent environments.
+* In terms of tests implementation it would be good implement mutation tests (pitest) and load tests (k6, JMeter) in order to increase tests quality.

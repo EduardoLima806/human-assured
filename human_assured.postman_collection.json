@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "aa75fa38-4901-4a43-8d90-96c373c7bcc8",
+		"name": "Prediktive",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36381430"
+	},
+	"item": [
+		{
+			"name": "Ask",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/human-assured/api/v1/message/ask",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"human-assured",
+						"api",
+						"v1",
+						"message",
+						"ask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Answer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Api-Token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOjA6MDowOjA6MDowOjEiLCJpcCI6IjA6MDowOjA6MDowOjA6MSIsInVzZXJBZ2VudCI6IlBvc3RtYW5SdW50aW1lLzcuMzkuMCIsImV4cCI6MTcyNjk2MzA3NiwiaWF0IjoxNzI2OTYzMDQ2fQ.r3GaBtnW2qxucZM0OSMzvVJTQwYV7pUM4m1EjEMJmTw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/human-assured/api/v1/message/answer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"human-assured",
+						"api",
+						"v1",
+						"message",
+						"answer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
