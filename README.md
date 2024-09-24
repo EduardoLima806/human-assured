@@ -30,6 +30,7 @@ Follow the used libraries and how to run the application.
 * Spring Boot
 * JUnit (Unit tests)
 * RestAssured (Integration/API tests)
+* GitHub Actions (CI/CD)
 
 The application was built in Spring Boot, and the basic command to run is:
 
